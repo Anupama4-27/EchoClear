@@ -1,0 +1,19 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>EchoClear</title>
+ <link href="{% static 'assets/img/favicon.png' %}" rel="icon">
+<body>
+  <style>
+    body { font-family: sans-serif; background-image: url("{% static 'assets/img/rose.jpg' %}");background-size: cover;text-align: center;padding: 50px;padding-top:180px;color:white;}
+</style>
+    </head>  
+    <h1> A Secret Message For you :</h1>
+    <div style="background:#a56bcf; padding: 96px; display:inline-block; border-radius:40px;">
+        <p><h1>{{ content }}</h1></p>
+    </div>
+    <p style="color:rgb(18, 3, 3); margin-top:30px;">WARNING: This note has been deleted from the server forever.</p>
+    <a href="/" style="color:#f511da;">Create New Note</a>
+</body>
+</html>

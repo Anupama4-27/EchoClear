@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>EchoClear</title>
+    <link href="{% static 'assets/img/favicon.png' %}" rel="icon">
+    <style>
+        body { font-family: sans-serif; background-image: url("{% static 'assets/img/neon.jpg' %}");background-size: cover;text-align: center;padding: 50px;padding-top:180px;}
+        .container { max-width: 600px; margin: auto; padding: 0px; border-radius: 10px; background: linear-gradient(135deg,rgba(238, 50, 255, 0.7),rgba(10,10,31,0.8)); backdrop-filter: blur(12px); border:1px solid rgba(255,0,255,0.2); border-radius: 15px; box-shadow: 0 8px 32px 0 rgba(0,0,0,0.6);
+            color:#ffffff; padding: 40px; max-width: 600px; margin: auto; }
+        textarea { width: 100%; height: 100px; margin-bottom: 10px; border-radius: 5px; }
+        button { background: #9c0dcc; color: white; border:2px solid rgba(238,50,255,1); padding: 10px 20px; cursor: pointer; border-radius: 5px; }
+        .about { margin-top: 50px; border-top: 1px solid #c91ccc; padding-top: 20px; opacity: 0.7; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>EchoClear</h1>
+        <p>Send a note that disappears after 1 view.</p>
+        
+        <form method="POST" action="{% url 'create_note' %}">
+            {% csrf_token %}
+            <textarea name="content" placeholder="Type your secret message here..." required></textarea><br>
+            <button type="submit">Create Secret Link</button>
+        </form>
+
+        {% if note_id %}
+        <div style="margin-top:20px; background:#333; padding:15px;">
+            <p>Your Link (Copy and Share):</p>
+            <input type="text" value="{{ request.get_host }}/view/{{ note_id }}/" id="linkInput" readonly style="width:80%;">
+            <button onclick="copyLink()">Copy</button>
+        </div>
+        {% endif %}
+    </div>
+
+    <script>
+        function copyLink() {
+            var copyText = document.getElementById("linkInput");
+            copyText.select();
+            document.execCommand("copy");
+            alert("Link copied! It will vanish after 1 view.");
+        }
+    </script>
+</body>
+</html>
